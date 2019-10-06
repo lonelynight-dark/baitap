@@ -1,0 +1,97 @@
+#include<iostream>
+#include<iomanip>
+#include<fstream>
+using namespace std;
+
+void DocInt();
+void LayDuLieu(string path);
+void XuatDuLieu(string path);
+int KTXauDoiXung(string xau_kt, int length);
+
+//########################################
+int q{ 0 };
+string xau = "";
+int a[] = {0};
+//########################################
+
+void LayDuLieu(string path)
+// doc file bang cach lay tung phan tu
+{
+	std::ifstream fileInput("D:/1.txt");
+
+	if (fileInput.fail())
+		std::cout << "Failed to open this file!" << std::endl;
+	// nhap du lieu tu file tung phan tu cach nhau bang khoang trang hoac xuong dong
+	fileInput >> xau >> q;
+	int i{ 0 };
+	// Cach nhap du lieu vaso mot mang tu mot file
+	while (!fileInput.eof())
+	{
+		fileInput >> a[i];
+		i++;
+	}
+	fileInput.close();
+}
+
+void XuatDuLieu(string path, int b[])
+//Xuat du lieu ra file
+{
+	ofstream fileOutput(path);
+	if (fileOutput.fail())
+		cout << "Khong mo duoc file";
+
+	for (int i = 0; i < q; i++)
+	{
+		fileOutput << b[i] << endl;
+	}
+	fileOutput.close();
+}
+
+int KTXauDoiXung(string xau_kt, int length)
+{	
+	int flag{ 1 };
+	for (int i{ 0 }; i < round(length/2) ; i++)
+	{
+		if (xau_kt[i] != xau_kt[length - 1 - i])
+		{
+			flag = 0;
+			break;
+		}
+	}
+	return flag;
+}
+
+
+int main()
+{
+	string path_int = "D:/1.txt";
+	string path_out = "D:/LANAI.OUT.txt";
+	LayDuLieu(path_int);
+	
+	int Check[100000];
+	//Cat Xau va In kq
+	for (int i{ 0 }; i < q; i++)
+	{
+		Check[i] = 0;
+		for (int j{ 0 }; j <= (xau.size() - a[i]); j++)
+		{
+			
+			string xau_kt = xau.substr(j, a[i]);
+			
+			//Phan thu kq(xoa di neu con thoi gian)
+			cout << a[i];
+			cout << endl << xau_kt << "\t";
+			cout << (KTXauDoiXung(xau_kt, a[i]) == 1) << endl;
+
+			if (KTXauDoiXung(xau_kt, a[i]) == 1)
+			{	
+				Check[i] = 1;
+				break;
+			}
+		}
+		 
+
+	}
+	XuatDuLieu(path_out, Check);
+	return 0;
+}
