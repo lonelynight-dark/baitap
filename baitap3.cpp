@@ -61,7 +61,7 @@ int KT(int x1, int y1, int r, int c)
 	return 1;
 }
 void In(int x1, int y1, int r, int c)
-// Ham nay kiem tra khoang o r x c tat ca deu co so nguyen to hay khong
+// Ham nay IN khoang o r x c duoc chon tu ham KT ( chi co tac dung debug )
 {
 	for (int dong{ x1 - 1 }; dong <= x1 + r - 2; dong++)
 	{
