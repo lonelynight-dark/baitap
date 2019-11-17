@@ -1,0 +1,23 @@
+void MinusDay(int day_int, int month_int, int year_int, int& day_out, int& month_out, int& year_out, int day_minus)
+{
+	int day = day_int, month = month_int, year = year_int;
+	day_out = day, month_out = month, year_out = year;
+	if (day_minus < day)
+	{
+		day_out -= day_minus;
+		return;
+	}
+	day_minus -= day;
+	while (day_minus > 0)
+	{
+		if (month > 1)	month--;
+		else
+		{
+			month = 12;
+			year--;
+		}
+		day_minus -= ShowDaysInMonth(month, year);
+	}
+	day_out = - day_minus;
+	month_out = month; year_out = year;
+}
